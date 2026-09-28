@@ -9,12 +9,18 @@ rate underneath.
 ```text
 Context
 █████████████████████████░░░░░░░░░░░░░░░░░
-296.0k / 1.00M (30%)              $0.03
-in                 128.4k
-out                 17.6k
-cache              5.69M     98% hit
-think              24.1k
+window  319.8k / 1.00M (32%)
+in                 16.1k
+out                33.7k
+cache          28.79M     100% hit
+think              9.6k ~est
+total            28.85M          $0.03
 ```
+
+Two totals, never on the same line: `window` is what the model's context window
+holds right now; `total` is the sum of every step in the session, and the rows
+above it add up to it. See [`scope`](#scope-turn-vs-session) — they differ by
+orders of magnitude.
 
 | Segment | Meaning                                  | Color       |
 | ------- | ---------------------------------------- | ----------- |

@@ -390,27 +390,37 @@ function Panel(props: { context: Plugin.Context; sessionID: string; config: Conf
               </For>
             </text>
 
-            <Show when={config.showTotal || (config.showCost && cost() > 0)}>
+            {/*
+             * Two different totals, so they must never share a line. In `turn`
+             * scope the window line *is* the row sum, so it stands alone. In
+             * `session` scope the rows sum to something else entirely, and the
+             * window gets its own labelled line so the two cannot be confused.
+             */}
+            <Show
+              when={config.showTotal || (config.showCost && cost() > 0)}
+              fallback={
+                <Show when={config.showCost && cost() > 0}>
+                  <text fg={theme().text.muted} wrapMode="none">
+                    {formatMoney(cost())}
+                  </text>
+                </Show>
+              }
+            >
               <box flexDirection="row" justifyContent="space-between">
                 <text fg={theme().text.muted} wrapMode="none">
+                  {config.scope === "session" ? "window  " : ""}
                   {config.showTotal
                     ? limit()
                       ? `${formatTokens(live()?.used ?? current().used)} / ${formatTokens(limit()!)} (${percent() ?? 0}%)`
                       : formatTokens(live()?.used ?? current().used)
                     : " "}
                 </text>
-                <Show when={config.showCost && cost() > 0}>
+                <Show when={config.scope !== "session" && config.showCost && cost() > 0}>
                   <text fg={theme().text.muted} wrapMode="none">
                     {formatMoney(cost())}
                   </text>
                 </Show>
               </box>
-            </Show>
-
-            <Show when={config.scope === "session"}>
-              <text fg={theme().text.muted} wrapMode="none">
-                session · all steps
-              </text>
             </Show>
 
             <Row theme={theme} label="in" color={palette.in} value={formatTokens(current().input)} />
@@ -429,6 +439,15 @@ function Panel(props: { context: Plugin.Context; sessionID: string; config: Conf
                 color={palette.think}
                 value={formatTokens(current().reasoning)}
                 suffix={current().reasoningEstimated ? "~est" : undefined}
+              />
+            </Show>
+            <Show when={config.scope === "session"}>
+              <Row
+                theme={theme}
+                label="total"
+                color={theme().text.muted}
+                value={formatTokens(current().used)}
+                suffix={config.showCost && cost() > 0 ? formatMoney(cost()) : undefined}
               />
             </Show>
           </box>
