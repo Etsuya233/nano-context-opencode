@@ -1,0 +1,65 @@
+{
+  "name": "nano-context-opencode",
+  "version": "0.1.0",
+  "description": "A nano-context style segmented token meter for the OpenCode V2 TUI sidebar: input / output / cache segments plus a cache hit rate.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Etsuya233/nano-context-opencode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Etsuya233/nano-context-opencode/issues"
+  },
+  "homepage": "https://github.com/Etsuya233/nano-context-opencode#readme",
+  "exports": {
+    ".": "./index.ts",
+    "./tui": "./tui.ts"
+  },
+  "files": [
+    "index.ts",
+    "tui.ts",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test src/bar.test.ts"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "tui",
+    "sidebar",
+    "tokens",
+    "context",
+    "cache"
+  ],
+  "peerDependencies": {
+    "@opencode/plugin": ">=2.0.18",
+    "@opentui/core": ">=0.4.5",
+    "@opentui/solid": ">=0.4.5",
+    "solid-js": ">=1.9.0"
+  },
+  "peerDependenciesMeta": {
+    "@opentui/core": {
+      "optional": true
+    },
+    "@opentui/solid": {
+      "optional": true
+    },
+    "solid-js": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@opencode/plugin": "^2.0.18",
+    "@opencode/theme": "^2.0.18",
+    "@opentui/core": "^0.5.12",
+    "@opentui/solid": "^0.5.12",
+    "@types/node": "^24.0.0",
+    "solid-js": "^1.9.0",
+    "typescript": "^5.7.0"
+  }
+}
