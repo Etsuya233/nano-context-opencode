@@ -1,5 +1,5 @@
 {
-  "name": "nano-context-opencode",
+  "name": "@etsuya/nano-context-opencode",
   "version": "0.1.0",
   "description": "A nano-context style segmented token meter for the OpenCode V2 TUI sidebar: input / output / cache segments plus a cache hit rate.",
   "license": "MIT",

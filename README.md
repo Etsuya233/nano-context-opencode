@@ -46,7 +46,7 @@ at a TUI module makes the server fail to load the plugin.
   "$schema": "https://opencode.ai/v2/cli.json",
   "plugins": [
     {
-      "package": "D:/path/to/nano-context-opencode",
+      "package": "@etsuya/nano-context-opencode",
       "options": {
         "barWidth": "auto",
         "scope": "session"
@@ -56,12 +56,28 @@ at a TUI module makes the server fail to load the plugin.
 }
 ```
 
-`package` must be the **directory**, not a file. OpenCode resolves a local
-plugin's terminal entry by path — it looks for `<plugin-dir>/tui` — and ignores
-`package.json` `exports` for path-based plugins. Pointing at a single file is
-silently skipped.
-
 Then restart OpenCode, or run `opencode reload`.
+
+The package ships TypeScript source rather than a build, so there is no build
+step: OpenCode runs on Bun, which executes it directly.
+
+### Installing from a checkout
+
+`package` may also be a **directory**, which is what you want while working on the
+plugin itself — edits to the source take effect on reload, with no build:
+
+```jsonc
+{
+  "plugins": [
+    { "package": "D:/path/to/nano-context-opencode" }
+  ]
+}
+```
+
+OpenCode resolves a local plugin's terminal entry by path — it looks for
+`<plugin-dir>/tui` — and ignores `package.json` `exports` for path-based plugins.
+Pointing at a single file, or omitting `tui.ts` from the package root, is
+silently skipped: the plugin installs, loads nothing, and renders no bar.
 
 ### Keep only this bar
 
