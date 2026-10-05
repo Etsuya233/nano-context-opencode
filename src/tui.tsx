@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/solid */
 import { appendFileSync } from "node:fs"
 import { createMemo, createSignal, For, onCleanup, onMount, Show, type Accessor } from "solid-js"
 import { LayoutEvents, type BoxRenderable, type RGBA } from "@opentui/core"
